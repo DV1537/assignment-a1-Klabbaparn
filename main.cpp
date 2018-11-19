@@ -23,7 +23,7 @@ int main(int argc, const char *argv[])
         if (countOfChar(stringOfNumbers, '.') > 1 || //Check if string doesn't contain more than 1 dot.
             countOfChar(stringOfNumbers, '-') > 1 || //Check if string doesn't contain more than one subtraction
             countOfChar(stringOfNumbers, '+') > 1 || //Checks if string doesn't contain more than one addition
-            !hasValidChars(stringOfNumbers)) //Checks that the strings only contains numbers
+            !hasValidChars(stringOfNumbers))         //Checks that the strings only contains numbers
         {
             std::cout << "File is corrupt" << std::endl;
             return EXIT_FAILURE;
@@ -43,10 +43,13 @@ int main(int argc, const char *argv[])
     int j = 0;
     while (f >> get)
     {
-        sum += get;                   // Get the sum of the integers
-        get = (int)(get * 1000 + .5); //rounding
-        get = (get / 1000);           // convert into 3 decimals
-        arrayOfNumbers[j] = get;      // Insert integers into array
+        sum += get;
+        if (get > 0) // Get the sum
+            get = (int)(get * 1000 + .5);//Rounding
+        else if (get < 0)
+            get = (int)(get * 1000 - .5);//Rounding
+        get = (get / 1000);      // convert into 3 decimals
+        arrayOfNumbers[j] = get; // Insert integers into array
         j++;
     }
     f.close();                      //Close file
